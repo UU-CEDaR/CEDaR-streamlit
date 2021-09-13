@@ -1,0 +1,29 @@
+<OGRVRTDataSource>
+    <OGRVRTUnionLayer name="utah_census_regions">
+        <SourceLayerFieldName>layer_name</SourceLayerFieldName>
+        <OGRVRTLayer name="tl_2010_49_county00">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county00.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_county10">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county10.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_bg00">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg00.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_bg10">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg10.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_tract00">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract00.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_tract10">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract10.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_zcta500">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta500.shz</SrcDataSource>
+        </OGRVRTLayer>
+        <OGRVRTLayer name="tl_2010_49_zcta510">
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta510.shz</SrcDataSource>
+        </OGRVRTLayer>
+    </OGRVRTUnionLayer>
+</OGRVRTDataSource>

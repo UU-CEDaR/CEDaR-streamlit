@@ -1,0 +1,32 @@
+{
+    "chunks": [
+        5,
+        256,
+        256
+    ],
+    "compressor": {
+        "blocksize": 0,
+        "clevel": 4,
+        "cname": "zlib",
+        "id": "blosc",
+        "shuffle": 1
+    },
+    "dtype": "<f4",
+    "fill_value": "NaN",
+    "filters": [
+        {
+            "astype": "<i2",
+            "dtype": "<f4",
+            "id": "fixedscaleoffset",
+            "offset": 0,
+            "scale": 10
+        }
+    ],
+    "order": "C",
+    "shape": [
+        18,
+        502,
+        501
+    ],
+    "zarr_format": 2
+}

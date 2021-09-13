@@ -1,0 +1,9 @@
+{
+    "_ARRAY_DIMENSIONS": [
+        "time",
+        "LAT",
+        "LON"
+    ],
+    "standard_name": "Percentage SS",
+    "units": "%"
+}

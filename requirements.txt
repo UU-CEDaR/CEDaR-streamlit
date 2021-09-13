@@ -1,0 +1,8 @@
+folium
+streamlit_folium
+zarr
+xarray
+gcsfs
+geopandas
+rasterio
+matplotlib
