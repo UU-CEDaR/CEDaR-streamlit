@@ -36,8 +36,8 @@ def app(data_path):
 
     image, min, max, caption = load_data(comp, sel_year, data_path)
 
-    m = folium.Map(location=[39.949610, -111.0],
-                    min_zoom=6, max_zoom=10, zoom_start=6)
+    m = folium.Map(location=[39.6, -111.5],
+                   min_zoom=6, max_zoom=12, zoom_start=7)
 
     m.add_child(folium.raster_layers.ImageOverlay(image, 
                 opacity=.7, mercator_project=True,
@@ -47,4 +47,4 @@ def app(data_path):
     legend = colormap.LinearColormap(color_list, caption=caption).scale(vmin=min, vmax=max)
     m.add_child(legend)
     # call to render Folium map in Streamlit
-    folium_static(m)
+    folium_static(m, width=700, height=800)

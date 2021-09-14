@@ -45,9 +45,8 @@ def app(data_path):
     attr = st.selectbox("Attribute:", list(TIFFFILES.keys()))
     image, min, max, bounds = load_data(attr, data_path)
 
-    m = folium.Map(location=[39.949610, -111.0],
-                    min_zoom=6, max_zoom=10, zoom_start=6,
-                    crs='EPSG3857')
+    m = folium.Map(location=[39.6, -111.5],
+                   min_zoom=6, max_zoom=12, zoom_start=7)
 
     m.add_child(folium.raster_layers.ImageOverlay(image,
                 opacity=.7, mercator_project=True,
@@ -56,4 +55,4 @@ def app(data_path):
     color_list = [cm(i) for i in np.linspace(0,1,num=10)]
     legend = colormap.LinearColormap(color_list, caption=CAPTION[attr]).scale(vmin=min, vmax=max)
     m.add_child(legend)
-    folium_static(m)
+    folium_static(m, width=700, height=800)

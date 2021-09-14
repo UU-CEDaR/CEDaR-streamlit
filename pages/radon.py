@@ -31,10 +31,8 @@ def app(data_path):
     comp = st.selectbox("Attribute:", ['FREQUENCY', 'SUM_HighEP', 'Perc_HighR'])
     gdf = load_data(data_path)
 
-    m = folium.Map(location=[39.949610, -111.0],
-                    min_zoom=6,
-                    max_zoom=12,
-                    zoom_start=6)
+    m = folium.Map(location=[39.6, -111.5],
+                   min_zoom=6, max_zoom=12, zoom_start=7)
 
     folium.Choropleth(
         geo_data=gdf,
@@ -48,4 +46,4 @@ def app(data_path):
         legend_name="",
     ).add_to(m)
 
-    folium_static(m)
+    folium_static(m, width=700, height=800)
