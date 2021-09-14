@@ -1,0 +1,436 @@
+{
+    "metadata": {
+        ".zattrs": {},
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "BC/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "BC/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage BC",
+            "units": "%"
+        },
+        "LAT/.zarray": {
+            "chunks": [
+                502
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f8",
+                    "id": "fixedscaleoffset",
+                    "offset": 0.005,
+                    "scale": 100
+                }
+            ],
+            "order": "C",
+            "shape": [
+                502
+            ],
+            "zarr_format": 2
+        },
+        "LAT/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "LAT"
+            ],
+            "long_name": "latitude centre",
+            "standard_name": "latitude",
+            "units": "degrees_north"
+        },
+        "LON/.zarray": {
+            "chunks": [
+                501
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f8",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f8",
+                    "id": "fixedscaleoffset",
+                    "offset": 0.005,
+                    "scale": 100
+                }
+            ],
+            "order": "C",
+            "shape": [
+                501
+            ],
+            "zarr_format": 2
+        },
+        "LON/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "LON"
+            ],
+            "long_name": "longitude centre",
+            "standard_name": "longitude",
+            "units": "degrees_east"
+        },
+        "NH4/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "NH4/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage NH4",
+            "units": "%"
+        },
+        "NIT/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "NIT/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage NIT",
+            "units": "%"
+        },
+        "OM/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "OM/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage OM",
+            "units": "%"
+        },
+        "PM25/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "PM25/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "PM25",
+            "units": "ug/m3"
+        },
+        "SO4/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "SO4/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage SO4",
+            "units": "%"
+        },
+        "SOIL/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "SOIL/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage SOIL",
+            "units": "%"
+        },
+        "SS/.zarray": {
+            "chunks": [
+                5,
+                256,
+                256
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 4,
+                "cname": "zlib",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<f4",
+            "fill_value": "NaN",
+            "filters": [
+                {
+                    "astype": "<i2",
+                    "dtype": "<f4",
+                    "id": "fixedscaleoffset",
+                    "offset": 0,
+                    "scale": 10
+                }
+            ],
+            "order": "C",
+            "shape": [
+                18,
+                502,
+                501
+            ],
+            "zarr_format": 2
+        },
+        "SS/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time",
+                "LAT",
+                "LON"
+            ],
+            "standard_name": "Percentage SS",
+            "units": "%"
+        },
+        "time/.zarray": {
+            "chunks": [
+                18
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 5,
+                "cname": "lz4",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "<i8",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                18
+            ],
+            "zarr_format": 2
+        },
+        "time/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "time"
+            ],
+            "calendar": "proleptic_gregorian",
+            "units": "days since 2000-01-01"
+        }
+    },
+    "zarr_consolidated_format": 1
+}
