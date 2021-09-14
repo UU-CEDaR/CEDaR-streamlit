@@ -12,6 +12,22 @@ SHAPEFILES = {
     "tracts": "tl_2010_49_tract10.shz",
     "blockgroups": "tl_2010_49_bg10.shz"
 }
+CAPTION = {
+    'co': 'CO (ppb)', 
+    'no2': 'NO₂ (ppb)', 
+    'o3': 'O₃ (ppb)', 
+    'pm10': 'PM₁₀ (μg/m³)', 
+    'pm25': 'PM₂₅ (μg/m³)', 
+    'so2': 'SO₂ (ppm)'
+}
+RANGE = {
+    'co': [1990,2015], 
+    'no2': [1979,2015], 
+    'o3': [1979,2015], 
+    'pm10': [1988,2015], 
+    'pm25': [1999,2015], 
+    'so2': [1979,2015]
+}
 
 @st.cache
 def load_shapes(shape, data_path):
@@ -32,9 +48,9 @@ def app(data_path):
     comp = st.selectbox("Pollutant:", ['co', 'no2', 'o3', 'pm10', 'pm25', 'so2'])
     year = st.slider(
         "Year:",
-        min_value=1979,
-        max_value=2015,
-        value=2010)
+        min_value=RANGE[comp][0],
+        max_value=RANGE[comp][1],
+        value=RANGE[comp][1])
     df = load_data(shape, comp, year, data_path)
     gdf = load_shapes(shape, data_path)
 
@@ -52,7 +68,7 @@ def app(data_path):
         nan_fill_color='red',
         fill_opacity=0.7,
         line_opacity=0.2,
-        legend_name="",
+        legend_name=CAPTION[comp],
     ).add_to(m)
     # call to render Folium map in Streamlit
     folium_static(m)
