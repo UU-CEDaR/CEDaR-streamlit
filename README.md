@@ -1,17 +1,21 @@
-### Setup
+## Setup
+Let `python3` be the name to call python in your system.
 ```shell
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### Local Run
-```
+## Local Run
+```shell
+source .venv/bin/activate
 streamlit run cedar_pub.py
 ```
 
-### Other Notes
-##### Google Cloud Storage access
+## External Data
+If you want fetch data from other place.
+
+### Google Cloud Storage access
 [Creating a json key file for a service account](https://cloud.google.com/docs/authentication/getting-started#windows).
 ```cmd
 set GOOGLE_APPLICATION_CREDENTIALS=KEY_PATH
