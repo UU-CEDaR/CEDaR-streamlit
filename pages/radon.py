@@ -14,8 +14,8 @@ SHAPEFILES = {
 }
 
 @st.cache
-def load_data(data_path):
-    gdf = geopandas.read_file(data_path+'/Radon_High_ZIP_code.shz')
+def load_data():
+    gdf = geopandas.read_file('data/Radon_High_ZIP_code.shz')
     return gdf
     # ['FID_ZipCod', 'ZIP5', 'COUNTYNBR', 'NAME', 'SYMBOL', 'SHAPE_Leng',
     #    'SHAPE_Area', 'Shape_Ar_1', 'FID_Radon_', 'OBJECTID_1', 'COUNTYNB_1',
@@ -25,11 +25,11 @@ def load_data(data_path):
     #    'COUNTYNB_2', 'NAME_12', 'FREQUENCY', 'SUM_HighEP', 'FIRST_Shap',
     #    'Perc_HighR', 'geometry']
 
-def app(data_path):
+def app():
     st.write("## Radon")
     st.write("Radon High Zip code.")
     comp = st.selectbox("Attribute:", ['FREQUENCY', 'SUM_HighEP', 'Perc_HighR'])
-    gdf = load_data(data_path)
+    gdf = load_data()
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)

@@ -24,9 +24,9 @@ CAPTION = {
 }
 
 @st.cache
-def load_data(attr, data_path):
+def load_data(attr):
 # ds = xr.open_zarr("data/hap_annual.zarr")
-    ds = xr.open_rasterio(data_path+f"/hisdac/{TIFFFILES[attr]}")
+    ds = xr.open_rasterio(f"data/hisdac/{TIFFFILES[attr]}")
     data = ds.data[0]
     x, y = data.shape
     bounds = [[ds.transform[5]+ds.transform[4]*y, ds.transform[2]], [ds.transform[5], ds.transform[2]+ds.transform[0]*x]]
@@ -39,11 +39,11 @@ def load_data(attr, data_path):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, bounds
 
-def app(data_path):
+def app():
     st.write("## HISDAC - FBUY")
     st.write("Reprejected Utah area of Historical settlement composite layer for the U.S. 1810 - 2015. Contained in the dataverse [HISDAC-US](https://dataverse.harvard.edu/dataverse/hisdacus).")
     attr = st.selectbox("Attribute:", list(TIFFFILES.keys()))
-    image, min, max, bounds = load_data(attr, data_path)
+    image, min, max, bounds = load_data(attr)
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)

@@ -30,18 +30,18 @@ RANGE = {
 }
 
 @st.cache
-def load_shapes(shape, data_path):
-    gdf = geopandas.read_file(data_path+f'/census/{SHAPEFILES[shape]}')
+def load_shapes(shape):
+    gdf = geopandas.read_file(f'data/census/{SHAPEFILES[shape]}')
     gdf = gdf[['GEOID10','NAMELSAD10','geometry']]#.rename(columns={'GEOID10':'feature.id'})
     return gdf
 
 @st.cache
-def load_data(shape, comp, year, data_path):
-    df = pd.read_csv(data_path + f"/caces/utah-{shape}.csv")
+def load_data(shape, comp, year):
+    df = pd.read_csv(f"data/caces/utah-{shape}.csv")
     df = df[(df.year==year) & (df.pollutant==comp)][['fips','pred_wght']].astype({'fips':'str'})
     return df
 
-def app(data_path):
+def app():
     st.write("## CACES - LUR")
     st.write("Land Use Regression models from [CACES](https://www.caces.us/).")
     shape = st.selectbox("Resolution:", list(SHAPEFILES.keys()))
@@ -51,8 +51,8 @@ def app(data_path):
         min_value=RANGE[comp][0],
         max_value=RANGE[comp][1],
         value=RANGE[comp][1])
-    df = load_data(shape, comp, year, data_path)
-    gdf = load_shapes(shape, data_path)
+    df = load_data(shape, comp, year)
+    gdf = load_shapes(shape)
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)

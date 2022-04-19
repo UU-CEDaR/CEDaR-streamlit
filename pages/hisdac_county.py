@@ -14,17 +14,17 @@ SHAPEFILES = {
 }
 
 @st.cache
-def load_data(data_path):
-    gdf = geopandas.read_file(data_path+'/hisdac/County_level_uncertainty_Utah.shz')
+def load_data():
+    gdf = geopandas.read_file('data/hisdac/County_level_uncertainty_Utah.shz')
     return gdf
     # ['GEOID', 'NAME', 'NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss',
     #    'geometry']
 
-def app(data_path):
+def app():
     st.write("## HISDAC - County")
     st.write("County-level uncertainty statistics accompanying the historical settlement.")
     comp = st.selectbox("Attribute:", ['NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss'])
-    gdf = load_data(data_path)
+    gdf = load_data()
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)

@@ -10,8 +10,8 @@ import branca.colormap as colormap
 cm = plt.cm.get_cmap('viridis_r')
 
 @st.cache
-def load_data(comp, year, data_path):
-    ds = xr.open_zarr(data_path+"/duace/annual.zarr")
+def load_data(comp, year):
+    ds = xr.open_zarr("data/duace/annual.zarr")
     # ds = xr.open_dataset("gcs://cedar-datasets/duace/annual.zarr",
     #     backend_kwargs={
     #         "storage_options": {"project": "cedar-283904", "token": None}
@@ -24,7 +24,7 @@ def load_data(comp, year, data_path):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, caption
 
-def app(data_path):
+def app():
     st.write("## ACAG")
     st.write("Ground-level composition mass concentrations estimation from [ACAG](https://sites.wustl.edu/acag/).")
     comp = st.selectbox("Composition:", ['BC', 'NH4', 'NIT', 'OM', 'PM25', 'SO4', 'SOIL', 'SS'])
@@ -34,7 +34,7 @@ def app(data_path):
         max_value=2017,
         value=2010)
 
-    image, min, max, caption = load_data(comp, sel_year, data_path)
+    image, min, max, caption = load_data(comp, sel_year)
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)

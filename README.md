@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## Local Run
 ```shell
 source .venv/bin/activate
-streamlit run cedar_pub.py
+streamlit run main.py
 ```
 
 ## External Data
