@@ -1,11 +1,14 @@
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
 import geopandas
-import pandas as pd
+
+
+# Upper level pages need these 2 variables.
+name = "HISDAC - County"
+link = "./?category=category_a&dataset=hisdac_county"
+
+# Code of current page start here
 
 SHAPEFILES = {
     "counties": "tl_2010_49_county10.shz",
@@ -20,7 +23,7 @@ def load_data():
     # ['GEOID', 'NAME', 'NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss',
     #    'geometry']
 
-def app():
+def run(params):
     st.write("## HISDAC - County")
     st.write("County-level uncertainty statistics accompanying the historical settlement.")
     comp = st.selectbox("Attribute:", ['NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss'])

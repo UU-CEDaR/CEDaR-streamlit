@@ -3,11 +3,15 @@ from streamlit_folium import folium_static
 import folium
 import xarray as xr
 import numpy as np
-import pandas as pd
-from datetime import datetime, date, timedelta
 import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
 import branca.colormap as colormap
+
+
+# Upper level pages need these 2 variables.
+name = "HISDAC - FBUY"
+link = "./?category=category_a&dataset=hisdac_fbuy"
+
+# Code of current page start here
 
 cm = plt.cm.get_cmap('viridis_r')
 TIFFFILES = {
@@ -39,7 +43,7 @@ def load_data(attr):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, bounds
 
-def app():
+def run(params):
     st.write("## HISDAC - FBUY")
     st.write("Reprejected Utah area of Historical settlement composite layer for the U.S. 1810 - 2015. Contained in the dataverse [HISDAC-US](https://dataverse.harvard.edu/dataverse/hisdacus).")
     attr = st.selectbox("Attribute:", list(TIFFFILES.keys()))

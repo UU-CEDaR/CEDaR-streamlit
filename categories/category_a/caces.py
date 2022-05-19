@@ -1,11 +1,15 @@
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
 import geopandas
 import pandas as pd
+
+
+# Upper level pages need these 2 variables.
+name = "CACES - LUR"
+link = "./?category=category_a&dataset=caces"
+
+# Code of current page start here
 
 SHAPEFILES = {
     "counties": "tl_2010_49_county10.shz",
@@ -41,7 +45,7 @@ def load_data(shape, comp, year):
     df = df[(df.year==year) & (df.pollutant==comp)][['fips','pred_wght']].astype({'fips':'str'})
     return df
 
-def app():
+def run(params):
     st.write("## CACES - LUR")
     st.write("Land Use Regression models from [CACES](https://www.caces.us/).")
     shape = st.selectbox("Resolution:", list(SHAPEFILES.keys()))

@@ -7,6 +7,12 @@ import numpy as np
 from datetime import datetime, date, timedelta
 import branca.colormap as colormap
 
+# Upper level pages need these 2 variables.
+name = "ACAG"
+link = "./?category=category_a&dataset=acag"
+
+# Code of current page start here
+
 cm = plt.cm.get_cmap('viridis_r')
 
 @st.cache
@@ -24,7 +30,7 @@ def load_data(comp, year):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, caption
 
-def app():
+def run(params):
     st.write("## ACAG")
     st.write("Ground-level composition mass concentrations estimation from [ACAG](https://sites.wustl.edu/acag/).")
     comp = st.selectbox("Composition:", ['BC', 'NH4', 'NIT', 'OM', 'PM25', 'SO4', 'SOIL', 'SS'])

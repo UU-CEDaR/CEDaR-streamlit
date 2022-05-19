@@ -5,22 +5,15 @@ import xarray as xr
 import numpy as np
 from datetime import datetime, date, timedelta
 import footer
-from pages import acag, caces, radon, hisdac_county, hisdac_fbuy
+import categories
 
-DATASETS = {
-    "ACAG": acag,
-    "CACES": caces,
-    "Radon": radon,
-    "HISDAC-County": hisdac_county,
-    "HISDAC-FBUY": hisdac_fbuy
-}
+# Header area
+st.markdown('<a href="/" target = "_self"> <h1> CEDaR </h1> </a>', unsafe_allow_html=True)
+st.markdown('A description of CEDaR.')
 
-st.title("CEDaR")
+# Main area
+params = st.experimental_get_query_params()
+categories.run(params)
 
-# Sidebar
-st.sidebar.title('DATASETS')
-selection = st.sidebar.radio('', list(DATASETS.keys()))
-page = DATASETS[selection]
-page.app()
-
+# Footer area
 footer.footer("This project is supported by a UofU HCI CCPS pilot grant and by NSF Award IIS-1816149.")

@@ -1,11 +1,14 @@
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
 import geopandas
-import pandas as pd
+
+
+# Upper level pages need these 2 variables.
+name = "Radon"
+link = "./?category=category_a&dataset=radon"
+
+# Code of current page start here
 
 SHAPEFILES = {
     "counties": "tl_2010_49_county10.shz",
@@ -25,7 +28,7 @@ def load_data():
     #    'COUNTYNB_2', 'NAME_12', 'FREQUENCY', 'SUM_HighEP', 'FIRST_Shap',
     #    'Perc_HighR', 'geometry']
 
-def app():
+def run(params):
     st.write("## Radon")
     st.write("Radon High Zip code.")
     comp = st.selectbox("Attribute:", ['FREQUENCY', 'SUM_HighEP', 'Perc_HighR'])
