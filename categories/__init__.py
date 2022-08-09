@@ -3,10 +3,12 @@ import importlib
 import pkgutil
 
 def run(params):
-    if "category" in params.keys():
+    if "category" in params.keys() and params["category"][0] != "Home":
+        #Run the module that you want...
         importlib.import_module(__name__+"."+params["category"][0]).run(params)
     else:
         st.write("## Categories")
+        #Write down the categories as default.
         for importer, name, _ in pkgutil.iter_modules(__path__, __name__+"."):
             module = importlib.import_module(name)
             # st.write(f"* [{category_module.name}]({category_module.link})")
