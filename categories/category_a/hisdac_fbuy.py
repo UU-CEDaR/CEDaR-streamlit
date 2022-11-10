@@ -43,7 +43,7 @@ def load_data(attr):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, bounds
 
-def run(params):
+def run(params, page_configurations):
     st.write("## HISDAC - FBUY")
     st.write("Reprejected Utah area of Historical settlement composite layer for the U.S. 1810 - 2015. Contained in the dataverse [HISDAC-US](https://dataverse.harvard.edu/dataverse/hisdacus).")
     attr = st.selectbox("Attribute:", list(TIFFFILES.keys()))

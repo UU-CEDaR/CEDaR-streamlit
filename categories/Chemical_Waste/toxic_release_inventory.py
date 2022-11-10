@@ -8,7 +8,7 @@ link = "./?category=chw&dataset=toxic_release_inventory"
 
 
 
-def run(params):
+def run(params, page_configurations):
     filename = "Toxic Release Inventory.zip"
     page = high_level_csv_page()
     page.setName("Toxic Release Inventory")
@@ -22,6 +22,7 @@ def run(params):
     page.setCSVDownloadLink('https://storage.googleapis.com/cedar-datasets/CEDaR%20Repository/tri_UT_all.csv')
     page.setCSVFilename('tri_UT_all.csv')
     filterYear = NumericSliderFilterer("Years:", 1987, 2018, "1. YEAR")
+    filterYear = NumericSliderFilterer(":", 1987, 2018, "1. YEAR")
     page.addDataFilterer(filterYear)
     allCounties = ["SALT LAKE", "UTAH", "CACHE" , "WEBER", "BOX ELDER", "DAVIS", "JUAB", 
             "TOOELE", "DUCHESNE", "BEAVER", "CARBON", "SEVIER", "IRON", "WASHINGTON", 

@@ -8,9 +8,9 @@ from classes.category_class import category_class
 name = "Category A"
 link = "./?category=category_a"
 
-def run(params):
-    cat = category_class(name="Chemical Hazardous Waste", 
-        description = "This dataset has a bunch of datasets describing\nthe nature of chemical hazardous waste around\nthe US and Utah.",
+def run(params, page_configurations):
+    cat = category_class(name="Category A", 
+        description = "A sample category for testing visualizations.",
         path = os.path.dirname(categories.category_a.__file__),
     )
     
@@ -19,7 +19,7 @@ def run(params):
     params = st.experimental_get_query_params()
 
     if "dataset" in params.keys() and params["dataset"][0] != "Description":
-            importlib.import_module(__name__ + '.'  +params["dataset"][0]).run(params)
+            importlib.import_module(__name__ + '.'  +params["dataset"][0]).run(params, page_configurations)
             return
     for _, name, _ in pkgutil.iter_modules(__path__, __name__+'.'):
         module = importlib.import_module(name)

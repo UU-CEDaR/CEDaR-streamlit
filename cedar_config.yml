@@ -1,0 +1,40 @@
+#This is an example YAML config file that includes Toxic_release_inventory
+
+---
+categories:
+  - name: Chemical Hazardous Waste #Don't use spaces in category names.
+    summary: "Datasets related to chemical waste" #description of the dataset.
+    datasets: #List of the datasets in categories.
+      - datasetName: "Toxic Release Inventory" #Name of the dataset
+        fileFormat: ".csv" #The format the data is in.
+        summary: "Information about chemicals and their toxicity" #Summary about the dataset
+        originalDataSource: "https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present" #Source where data came from.
+        dataDictionaryAvailable: true #If there is a data dictionary available.
+        dataDictionaryBucket: "cedar-datasets" #The google drive bucket that contains the dataset.
+        dataDictionaryBlob: "CEDaR Repository/" #The google drive blob that contains the dataset, minus the filename.
+        dataDictionaryFilename: "Toxic Release Inventory.zip" #The filename of the data dictionary.
+        dataDictionaryMime: "application/zip" #The mime type of the data. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+        visualizationAvailable: false #Whether the visualization is available. See example2.yaml for example of a visualization.
+        yearNumericSliderFilterer: #A slider that allows users to filter between a min and max year.
+          title: "Years:" #The title of this slider.
+          min: 1987 #The min value of this slider.
+          max: 2018 #The max value of this slider.
+          columnName: "1. YEAR" #The column name you are filtering in the dataset.
+        multipleTextOptionsFilterers: #A list of selections that only lets you select certain categorical variables.
+          - title: "Select counties:" #The title of the filterer
+            allOptions: #All possible options to filter for.
+              - "SALT LAKE"
+              - "UTAH"
+              - "CACHE"
+            defaultOptions: #The default options to filter for and a subset of allOptions. If it's blank, will default to the options in "allOptions"
+              - "SALT LAKE"
+              - "UTAH"
+              - "CACHE"
+            columnName: "7. COUNTY"
+        csvDownloadLink: "https://storage.googleapis.com/cedar-datasets/CEDaR%20Repository/tri_UT_all.csv" #Download link of the .csv.
+        csvFileDownloadName: "tri_UT_all.csv" #Download name of the .csv file.
+  - name: Radiation
+    summary: "Radiation datasets I dunno"
+    datasets:
+      - datasetName: "RAD_NET_EPA"
+        fileFormat: ".csv" #output excel file into a .csv...? Document the different file format types.

@@ -23,7 +23,7 @@ def load_data():
     # ['GEOID', 'NAME', 'NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss',
     #    'geometry']
 
-def run(params):
+def run(params, page_configurations):
     st.write("## HISDAC - County")
     st.write("County-level uncertainty statistics accompanying the historical settlement.")
     comp = st.selectbox("Attribute:", ['NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss'])

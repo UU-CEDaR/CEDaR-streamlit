@@ -30,10 +30,11 @@ def load_data(comp, year):
     data = (data - data.min()) / (data.max() - data.min()) # normalize
     return cm(data), min, max, caption
 
-def run(params):
-    st.write("## ACAG")
-    st.write("Ground-level composition mass concentrations estimation from [ACAG](https://sites.wustl.edu/acag/).")
-    comp = st.selectbox("Composition:", ['BC', 'NH4', 'NIT', 'OM', 'PM25', 'SO4', 'SOIL', 'SS'])
+def run(params, page_configurations):
+    st.write("## ACAG") #title
+    st.write("Ground-level composition mass concentrations estimation from [ACAG](https://sites.wustl.edu/acag/).") #summary
+    comp = st.selectbox("Composition:", ['BC', 'NH4', 'NIT', 'OM', 'PM25', 'SO4', 'SOIL', 'SS']) #compositionDatasetTitle
+    #Min, max, default value, and caption.
     sel_year = st.slider(
         "Year:",
         min_value=2000,

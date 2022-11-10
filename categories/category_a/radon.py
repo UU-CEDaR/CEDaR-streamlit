@@ -28,7 +28,7 @@ def load_data():
     #    'COUNTYNB_2', 'NAME_12', 'FREQUENCY', 'SUM_HighEP', 'FIRST_Shap',
     #    'Perc_HighR', 'geometry']
 
-def run(params):
+def run(params, page_configurations):
     st.write("## Radon")
     st.write("Radon High Zip code.")
     comp = st.selectbox("Attribute:", ['FREQUENCY', 'SUM_HighEP', 'Perc_HighR'])

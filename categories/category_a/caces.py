@@ -45,7 +45,7 @@ def load_data(shape, comp, year):
     df = df[(df.year==year) & (df.pollutant==comp)][['fips','pred_wght']].astype({'fips':'str'})
     return df
 
-def run(params):
+def run(params, page_configurations):
     st.write("## CACES - LUR")
     st.write("Land Use Regression models from [CACES](https://www.caces.us/).")
     shape = st.selectbox("Resolution:", list(SHAPEFILES.keys()))
