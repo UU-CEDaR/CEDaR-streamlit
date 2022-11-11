@@ -16,7 +16,7 @@ link = "./?category=category_a&dataset=acag"
 cm = plt.cm.get_cmap('viridis_r')
 
 @st.cache
-def load_data(comp, year):
+def load_data(comp,  ):
     ds = xr.open_zarr("data/duace/annual.zarr")
     # ds = xr.open_dataset("gcs://cedar-datasets/duace/annual.zarr",
     #     backend_kwargs={

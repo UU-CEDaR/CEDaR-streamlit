@@ -118,7 +118,7 @@ class DatasetPageCreator:
         self.name = name
  
     #Sets the name of the Data Dictionary.
-    def setDataDictionaryFileName(self, filename):
+    def setDataDictionaryFileName(self, dataDictionaryFilename):
         self.dataDictionaryFilename = dataDictionaryFilename
 
     #Sets the year range (as a string) for the dataset
@@ -180,10 +180,10 @@ class DatasetPageCreator:
                 st.write("Metadata is available for this dataset")
             else:
                 st.write("Metadata is not available for this dataset")
-        if (self.bucket is not None and self.blob is not None and self.filename is not None):
+        if (self.bucket is not None and self.blob is not None and self.dataDictionaryFilename is not None):
             placeholder = st.empty()
             placeholder.text("Initializing metadata download...")
-            st.download_button("Download Metadata", self.onClickDownloadLink(), file_name=self.dataDictionaryFilename, mime=self.mime)
+            st.download_button("Download Metadata", self.onClickDownloadDataDictionary(), file_name=self.dataDictionaryFilename, mime=self.mime)
             placeholder.empty()
         
         if (self.visual is not None):
@@ -209,12 +209,12 @@ class DatasetPageCreator:
 
 
     @st.cache
-    def onClickDownloadLink(self):
+    def onClickDownloadDataDictionary(self):
         storage_client = storage.Client.create_anonymous_client()
         bucket = storage_client.bucket(self.bucket)
         blob = bucket.blob(self.blob)
 
-        blob.download_to_filename(self.filename)
+        blob.download_to_filename(self.dataDictionaryFilename)
         download = blob.download_as_bytes()
         
         return download

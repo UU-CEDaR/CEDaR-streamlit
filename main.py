@@ -32,7 +32,7 @@ def categoryDisplayHome():
     st.write("## <- Choose a dataset from the menu")
     
     
-
+config_filename = 'https://storage.googleapis.com/cedar-datasets/cedar_config.yml'
 
 # Header area
 st.markdown('<a href="/" target = "_self"> <h1> CEDaR </h1> </a>', unsafe_allow_html=True)
@@ -42,7 +42,7 @@ st.markdown('A description of CEDaR.')
 #Clicking on one of the categories in the radio list will take you to that particular category page.
 #CATEGORIES = getCategories()
 
-f = urllib.request.urlopen('https://storage.googleapis.com/cedar-datasets/cedar_config.yml')
+f = urllib.request.urlopen(config_filename)
 
 page_configurations = yaml.safe_load(f.read())
 
