@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 
-#An object that the user will interact with that will filter the .csv
-#somehow.
+"""
+    These classes create widgets that filter csvs.
+"""
 class DataFilterer:
     def displayThings(self):
         pass
@@ -11,19 +12,42 @@ class DataFilterer:
         pass
 
 
-#Creates a slider to filter the .csv where csvColumnName is between min and max.
+"""
+    Creates a slider widget that filters a csv
+    between a minimum and maximum value.
+"""
 class NumericSliderFilterer(DataFilterer):
-    #Title: The title of the numeric slider filterer.
-    #Min: The minimum value that csvColumnName can possibly be.
-    #Max: The maximum value that csvColumnName can possibly be.
-    #CsvColumnName: The column in the csv that you are filtering for.
+    
     def __init__(self, title, min, max, csvColumnName):
+        """
+            Initializes a numeric slider filterer with
+            a short title, a minimum value, a maximum value,
+            and the column that you need to filter out.
+
+            Args:
+                title: The title of the numeric slider filterer.
+                min: The minimum value of the csvColumnName.
+                max: The maximum value of the csvColumnName.
+                csvColumnName: The name of the column that you are filtering.
+
+            Returns:
+                None
+        """
         self.title = title
         self.min = min
         self.max = max
         self.csvColumnName = csvColumnName
 
     def displayThings(self):
+        """
+            Displays the slider widget on screen.
+
+            Args:
+                None
+
+            Returns:
+                None
+        """
         self.slider = st.slider(
             self.title, 
             min_value = self.min,
@@ -31,30 +55,57 @@ class NumericSliderFilterer(DataFilterer):
             value = (self.min, self.max)
         )
 
-    #Filters the csv where columnName is between the slided set values
-    #of Min and Max.
+    
     def filterCSV(self, df):
+        """
+            Filters the dataframe to have values between 0 and 1
+            on column name csvColumnName.
+
+            Args:
+                df: The df derived from the .csv that you are filtering.
+
+            Returns:
+                the filtered dataframe.
+        """
         df = df.loc[(df[self.csvColumnName] >= self.slider[0])]
         df = df[df[self.csvColumnName] <= self.slider[1]]
         return df
 
 
+"""
+    Code for a widget to filter out a csv based on
+    selected values.
+"""
 class MultipleTextOptionsFilterer(DataFilterer):
-    #Title: The title of the multiple text options filterer.
-    #allOptions: All the options that are available in the multiple text 
-    #   options filterer.
-    #someOptions: The default options that are available in the multiple text
-    #   options filterer.
-    #CsvColumnName: The column in the csv that you are filtering for.
-    #There might be a way to get the selectable options more automatically.
+    
     def __init__(self, title, allOptions, someOptions, csvColumnName):
+        """
+            Initializes the values of the data filterer.
+
+            Args:
+                title: The title of the MultipleTextOptionFilterer
+                allOptions: All of the possible options of csvColumnName.
+                someOptions: The default options of csvColumnName.
+                csvColumnName: The csv column name that you are filtering on.
+
+            Returns:
+                None
+        """
         self.title = title
         self.allOptions = allOptions
         self.someOptions = someOptions
         self.csvColumnName = csvColumnName
 
-    #Creates a multiselect with a tile and options.
     def displayThings(self):
+        """
+            Displays the slider widget on screen.
+
+            Args:
+                None
+
+            Returns:
+                None
+        """
         self.multiselect = st.multiselect(
             self.title,
             self.allOptions,
@@ -63,6 +114,6 @@ class MultipleTextOptionsFilterer(DataFilterer):
         if st.button("Select all options"):
             self.multiselect = self.allOptions
     
-    #Filters the csv to have a number of values in the multiSelect.
+    #Filters the csv to only have rows where columnName is in the columns selected. 
     def filterCSV(self, df):
         return df[df[self.csvColumnName].isin(self.multiselect)]

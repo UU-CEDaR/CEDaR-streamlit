@@ -10,75 +10,77 @@ from classes.DataFilterer import MultipleTextOptionsFilterer
 import urllib
 import yaml
 
-
-
-#This class creates a page from a YAML file based on the information given.
+"""
+DatasetPageCreator: A class used to store all dataset variables and to display them.
+This class also handles much of the functionality of the dataset, such as downloading
+csvs, data dictionaries, and filtering data.
+"""
 class DatasetPageCreator:
 
-#|Main Function|
+
+    
     def __init__(self, dataset):
-        #The data filterers that will be used to filter the .csv file. See DataFilterer.py for more info on that.
+        """
+        When this class is given a dataset, it will configure all variables 
+            to be read later in loadpage()
+
+        Args:
+            dataset: A dataset part of the config YAML file.
+
+        Returns:
+            None
+
+        """
         self.dataFilterers = []
-        #Sets the summary of the dataset at the top of the page.
         self.setDatasetSummary(self.getFromDictOrDisplayWarning(dataset, 'summary'))
-        #Sets the name of the dataset based on the "datasetName" variable in the YML file.
         self.setName(dataset.get('datasetName', None))
-        #Gets the yearNumericSliderFilterer from the dataset.
         yearNumericSliderFilterer = dataset.get('yearNumericSliderFilterer', None)
         self.yearRange = None
-        #If the yearNumericSliderFilterer is not none, then display the min and max set in the filterer.
         if (yearNumericSliderFilterer is not None):
             self.setYearRange(str(self.getFromDictOrDisplayWarning(yearNumericSliderFilterer, 'min')) + '-' + str(self.getFromDictOrDisplayWarning(yearNumericSliderFilterer, 'max')))
-        #Sets the file format. This supports ".csv" and ".shp" right now.
         self.setFileFormat(dataset.get('fileFormat', None))
-        #Gets the link to the site where the original data came from.
         self.setOriginalDataSource(dataset.get('originalDataSource', None))
-        #Sets a bool (true/false) if there is a data dictionary available.
         self.setDataDictionaryAvailability(dataset.get('dataDictionaryAvailable', None))
-        #If the data dictionary is available, set the link to it from google drive.
         if self.dataDictionaryAvailable is not None:
-            #The google drive bucket you are pulling from. this will be "cedar-datasets".
             bucket = self.getFromDictOrDisplayWarning(dataset, 'dataDictionaryBucket')
-            #The location of the file based on the bucket. Look up blobs on google cloud or cedar_config.yml for more information.
             blob = self.getFromDictOrDisplayWarning(dataset, 'dataDictionaryBlob')
-            #The name of the file that you wish to download from the bucket.
             dictionaryFilename = self.getFromDictOrDisplayWarning(dataset, 'dataDictionaryFilename')
-            #The MIME of the file, or configurations needed to encode the file.
             mime = self.getFromDictOrDisplayWarning(dataset, 'dataDictionaryMime')
-            #sets the download location of the data dictionary.
-            self.setCloudConfigurations(bucket, blob, dictionaryFilename, mime)
-        #Gets if the visualization is available or not.
+            self.setDataDictionaryCloudConfigurations(bucket, blob, dictionaryFilename, mime)
         self.setVisualizationAvailable(dataset.get('visualizationAvailable', False))
-        #The variable used to represent visualizations.
         self.visualization = None
         if (self.visual):
-            #Gets the link to the visualization from google cloud.
             f = urllib.request.urlopen(dataset.get('visualizationLink', None))
-            #Gets the information of the visualization from the yml file.
             page_configurations = yaml.safe_load(f.read()) 
-            #Creates the visualization creator based on the page configurations.
             self.visualization = VisualizationCreator(page_configurations)
         if yearNumericSliderFilterer is not None:
-            #Creates a numeric slider filterer that filters the years of the dataset.
             self.addNumericSliderFiltererIfValid(yearNumericSliderFilterer)
-        #Create every numeric slider filterer that was listed in the .yml file.
         numericSliderFilterers = dataset.get('numericSliderFilterers', None)
         if numericSliderFilterers is not None:
             for i in numericSliderFilterers:
                 self.addNumericSliderFiltererIfValid(i)
-        #Create every multiple text slider filterer that was listed in the .yml file.
         multipleTextSliderFilterers = dataset.get('multipleTextOptionsFilterers', None)
         if multipleTextSliderFilterers is not None:
             for i in multipleTextSliderFilterers:
                 self.addMultipleTextOptionsFilterer(i)
-        #Gets the csv download link from the yml file.
         self.setCSVDownloadLink(self.getFromDictOrDisplayWarning(dataset, 'csvDownloadLink'))
-        #Sets the csv file name from the yml file.
         self.setCSVFilename(self.getFromDictOrDisplayWarning(dataset, 'csvFileDownloadName'))
 
 
-#|Convenience Functions called in the Main Function|
+
     def getFromDictOrDisplayWarning(self, dict, value):
+        """
+        Attempts to retrieve a variable from the dictionary, and if it doesn't exist, streamlit will display an error.
+
+        Args:
+            dict: The dictionary that you are reading from.
+            value: The value that you are attempting to read from the dictionary.
+
+        Returns:
+            dict[value] if value is a key in dict.
+            '' if value is not a key in dict.
+
+        """
         try:
             result = dict[value]
             return result
@@ -113,34 +115,27 @@ class DatasetPageCreator:
 #|Setter Functions|
 
 
-    #Sets the name of the dataset.
     def setName(self, name):
         self.name = name
  
-    #Sets the name of the Data Dictionary.
     def setDataDictionaryFileName(self, dataDictionaryFilename):
         self.dataDictionaryFilename = dataDictionaryFilename
 
-    #Sets the year range (as a string) for the dataset
     def setYearRange(self, yearRange):
         self.yearRange = yearRange
     
-    #Sets the original data source of the data.
     def setOriginalDataSource(self, originalDataSource):
         self.originalDataSource = originalDataSource
 
-    #Sets the file format of the data to be .csv, .shp, etc.
     def setFileFormat(self, fileFormat):
         self.fileFormat = fileFormat
 
-    #Sets the configurations of the cloud.
-    def setCloudConfigurations(self, bucket, blob, filename, mime):
+    def setDataDictionaryCloudConfigurations(self, bucket, blob, filename, mime):
         self.bucket = bucket
         self.blob = blob
         self.setDataDictionaryFileName(filename)
         self.mime = mime
 
-    #Sets true/false if the data dictionary is available.
     def setDataDictionaryAvailability(self, available):
         self.dataDictionaryAvailable = available
 
@@ -161,9 +156,19 @@ class DatasetPageCreator:
 
 
 
-#|Main function that loads the page|
+
 
     def loadPage(self):
+        """
+        Displays all the data previously created from the yaml file on the website.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+
+        """
         if (self.name is not None):
             st.write("## " + str(self.name))
         if (self.info is not None):
@@ -210,6 +215,16 @@ class DatasetPageCreator:
 
     @st.cache
     def onClickDownloadDataDictionary(self):
+        """
+        Downloads the data dictionary from the google cloud repository.
+
+        Args:
+            None
+
+        Returns:
+            the file in bytes that you downloaded from the google cloud 
+
+        """
         storage_client = storage.Client.create_anonymous_client()
         bucket = storage_client.bucket(self.bucket)
         blob = bucket.blob(self.blob)
@@ -221,17 +236,21 @@ class DatasetPageCreator:
 
     @st.cache
     def onClickDownloadCsv(self):
-        
+        """
+        Downloads the csv from google cloud and edits it using the Data Filterers.
+
+        Args:
+            None
+
+        Returns:
+            the filtered .csv in bytes.
+
+        """
         df = pd.read_csv(self.csvDownloadLink)
         for filterer in self.dataFilterers:
             df = filterer.filterCSV(df)
         finalCSV = df.to_csv(index=False)
         return finalCSV
 
-    @st.cache
-    def editCSV(self, download):
-        for dataFilterer in self.dataFilterers:
-            download = dataFilterer.filterCSV(download)
-        return download
         
         

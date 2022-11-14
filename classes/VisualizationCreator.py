@@ -10,17 +10,37 @@ import pandas as pd
 
 class VisualizationCreator:
 	
+	"""
+    Sets the dictionary that your visualization is being created from.
+
+	Args:
+		dataset: The dictionary of the visualization.
+
+	Returns:
+		None
+	"""
 	def __init__(self, dataset):
 		self.dataset = dataset
 		
 		
 
+	"""
+    Initializes the values of the map and displays it on the screen based on the presets given.
+		Note that the Chloropleth creation of the map is not finished, but the child creation
+		of the map is at least configured for acag.py.
+
+	Args:
+		None
+
+	Returns:
+		None
+	"""
 	def createMap(self):
-		psbSelectboxName, psbOptions = self.  getPollutantSelectbox(self.dataset)
+		psbSelectboxName, psbOptions = self.getPollutantSelectbox(self.dataset)
 		pollutant = st.selectbox(psbSelectboxName, psbOptions)
 		csbSelectboxName, csbOptions = self.getCompositionSelectbox(self.dataset)
 		comp = st.selectbox(csbSelectboxName, csbOptions)
-		datasetValue = self.getDatasetBasedOnYearProvided(self.dataset, pollutant)
+		datasetValue = self.getDatasetBasedOnPollutantProvided(self.dataset, pollutant)
 		year = self.createCompositionSlider(comp, datasetValue)
 		sourceFileInfo = self.dataset["sourceFile"]
 
@@ -33,7 +53,16 @@ class VisualizationCreator:
 		
 #######################################################################################
 
-	
+	"""
+    Gets the name and all the possible selections of the pollutant datasets.
+
+	Args:
+		dataset: The dataset with the pollutant data
+
+	Returns:
+		The title of the pollutant datasets, as well as all of the possible selections for pollutants.
+
+	"""
 	def getPollutantSelectbox(self, dataset):
 		csbSelectboxName = dataset['PollutantDatasets']['PollutantDatasetTitle']
 		csbOptions = []
@@ -41,14 +70,37 @@ class VisualizationCreator:
 			csbOptions.append(i['selectionName'])
 		return csbSelectboxName, csbOptions
 		
+	
 	def getCompositionSelectbox(self, dataset):
+		"""
+		Gets the name and all the possible selections of the composition datasets.
+
+		Args:
+			dataset: The dataset with the composition data
+
+		Returns:
+			The title of the composition datasets, as well as all of the possible selections for compositions.
+			
+		"""
 		psbSelectboxName = dataset['CompositionDatasets']['CompositionDatasetTitle']
 		psbOptions = []
 		for i in dataset['CompositionDatasets']['Selections']:
 			psbOptions.append(i['selectionName'])
 		return psbSelectboxName, psbOptions
 		
+	
 	def createCompositionSlider(self, comp, dataset):
+		"""
+		Creates a slider and sets the year that the user selected.
+
+		Args:
+			comp: The selected composition for the slider.
+			dataset: The dataset of the currently selected pollutant.
+
+		Returns:
+			The year that the use selected for the dataset.
+			
+		"""
 		year = st.slider(
 			comp,
 			dataset['min'],
@@ -57,9 +109,20 @@ class VisualizationCreator:
 		)
 		return year
 		
-	def getDatasetBasedOnYearProvided(self, dataset, comp):
+	def getDatasetBasedOnPollutantProvided(self, dataset, pollutant):
+		"""
+		Gets the pollutant dataset based on the 
+
+		Args:
+			comp: The selected composition for the slider.
+			dataset: The dataset of the currently selected pollutant.
+
+		Returns:
+			The year that the use selected for the dataset.
+			
+		"""
 		for i in dataset['PollutantDatasets']['Pollutants']:
-			if (i['selectionName'] == comp):
+			if (i['selectionName'] == pollutant):
 				return i
 		return None
 
