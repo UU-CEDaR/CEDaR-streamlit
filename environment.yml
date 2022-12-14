@@ -1,0 +1,10 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - zarr
+  - geopandas
+  - rasterio
+  - pip
+  - pip:
+    - -r requirements.txt

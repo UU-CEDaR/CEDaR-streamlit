@@ -1,14 +1,16 @@
 ## Setup
-Let `python3` be the name to call python in your system.
+### Use pip only (not ARM64):
 ```shell
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-x86.txt
 ```
+### Use conda (ARM64):
+Install conda, then
+- To use the base env: `conda env update -n base -f environment.yml`
+- To create a new env: `conda env create -n newenv -f environment.yml` and `conda activate newenv`
 
 ## Local Run
+Activate virture environment if necessery, then
 ```shell
-source .venv/bin/activate
 streamlit run main.py
 ```
 
