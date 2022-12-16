@@ -8,14 +8,14 @@ import geopandas
 import pandas as pd
 
 SHAPEFILES = {
-    "counties": "tl_2010_49_county10.shz",
-    "tracts": "tl_2010_49_tract10.shz",
-    "blockgroups": "tl_2010_49_bg10.shz"
+    "counties": "tl_2010_49_county10.shp.zip",
+    "tracts": "tl_2010_49_tract10.shp.zip",
+    "blockgroups": "tl_2010_49_bg10.shp.zip"
 }
 
 @st.cache
 def load_data():
-    gdf = geopandas.read_file('data/hisdac/County_level_uncertainty_Utah.shz')
+    gdf = geopandas.read_file('data/hisdac/County_level_uncertainty_Utah.shp.zip', driver='ESRI Shapefile')
     return gdf
     # ['GEOID', 'NAME', 'NumRecords', 'TMiss', 'GeoMiss', 'LUMiss', 'AMiss',
     #    'geometry']

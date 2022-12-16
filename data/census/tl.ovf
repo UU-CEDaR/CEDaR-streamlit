@@ -2,28 +2,28 @@
     <OGRVRTUnionLayer name="utah_census_regions">
         <SourceLayerFieldName>layer_name</SourceLayerFieldName>
         <OGRVRTLayer name="tl_2010_49_county00">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county00.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county00.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_county10">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county10.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_county10.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_bg00">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg00.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg00.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_bg10">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg10.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_bg10.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_tract00">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract00.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract00.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_tract10">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract10.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_tract10.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_zcta500">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta500.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta500.shp.zip</SrcDataSource>
         </OGRVRTLayer>
         <OGRVRTLayer name="tl_2010_49_zcta510">
-            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta510.shz</SrcDataSource>
+            <SrcDataSource>./cedarapi/data/census/tl_2010_49_zcta510.shp.zip</SrcDataSource>
         </OGRVRTLayer>
     </OGRVRTUnionLayer>
 </OGRVRTDataSource>

@@ -8,9 +8,9 @@ import geopandas
 import pandas as pd
 
 SHAPEFILES = {
-    "counties": "tl_2010_49_county10.shz",
-    "tracts": "tl_2010_49_tract10.shz",
-    "blockgroups": "tl_2010_49_bg10.shz"
+    "counties": "tl_2010_49_county10.shp.zip",
+    "tracts": "tl_2010_49_tract10.shp.zip",
+    "blockgroups": "tl_2010_49_bg10.shp.zip"
 }
 CAPTION = {
     'co': 'CO (ppb)', 
@@ -31,7 +31,7 @@ RANGE = {
 
 @st.cache
 def load_shapes(shape):
-    gdf = geopandas.read_file(f'data/census/{SHAPEFILES[shape]}')
+    gdf = geopandas.read_file(f'data/census/{SHAPEFILES[shape]}', driver='ESRI Shapefile')
     gdf = gdf[['GEOID10','NAMELSAD10','geometry']]#.rename(columns={'GEOID10':'feature.id'})
     return gdf
 
