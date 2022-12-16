@@ -1,37 +1,34 @@
-import streamlit as st
-from streamlit_folium import folium_static
-import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
-import footer
-import categories
-import pkgutil
-import os
-import yaml
+"""App entry point."""
+
 import urllib
+
+import streamlit as st
+import yaml
+
+import footer
 from classes.high_level_csv_page import DatasetPageCreator
 
 
+# pylint: disable=missing-function-docstring, invalid-name, line-too-long
 def defaultDisplayHome():
     st.write("## <- Click on one of the tabs to get started")
 
-def getCategory(categorySelection, CATEGORIES):
-    for i in CATEGORIES:
-        if (categorySelection == i['name']):
-            return i
+def getCategory(category_name, cagegories):
+    for c in cagegories:
+        if category_name == c['name']:
+            return c
     return None
 
-def getDataset(datasetSelection, DATASETS):
-	for i in DATASETS:
-		if (datasetSelection == i['datasetName']):
-			return i
-	return None
-	
+def getDataset(dataset_name, datasets):
+    for d in datasets:
+        if dataset_name == d['datasetName']:
+            return d
+    return None
+
 def categoryDisplayHome():
     st.write("## <- Choose a dataset from the menu")
-    
-    
+
+
 config_filename = 'https://storage.googleapis.com/cedar-datasets/cedar_config.yml'
 
 # Header area
@@ -50,25 +47,27 @@ CATEGORIES = page_configurations['categories'] #List of dictionaries
 radioCategories = ['Home']
 for i in CATEGORIES:
     radioCategories.append(i['name'])
-categorySelection = st.sidebar.radio('', radioCategories)
+selected_category_name = st.sidebar.radio('', radioCategories)
 
-if (categorySelection == "Home") or categorySelection not in radioCategories:
-	defaultDisplayHome()
+if selected_category_name == "Home" or selected_category_name not in radioCategories:
+    defaultDisplayHome()
 
 else:
-	#perhaps put this into a 'displayOneCategory' function...
-	category = getCategory(categorySelection, CATEGORIES) #The category with the name that matches the current configuration
-	DATASETS = category['datasets']
-	radioDatasets = ['Home']
-	for i in DATASETS:
-		radioDatasets.append(i['datasetName'])
-	datasetSelection = st.sidebar.radio('', radioDatasets)
-	if (datasetSelection == "Home") or datasetSelection not in radioDatasets:
-		categoryDisplayHome()
-	else:
-		page = DatasetPageCreator(getDataset(datasetSelection, DATASETS))
-		page.loadPage()
-footer.footer("This project is supported by a UofU HCI CCPS pilot grant and by NSF Award IIS-1816149.")
+    #perhaps put this into a 'displayOneCategory' function...
+    category = getCategory(selected_category_name, CATEGORIES)
+    DATASETS = category['datasets']
+    radioDatasets = ['Home']
+    for i in DATASETS:
+        radioDatasets.append(i['datasetName'])
+    datasetSelection = st.sidebar.radio('', radioDatasets)
+    if datasetSelection == "Home" or datasetSelection not in radioDatasets:
+        categoryDisplayHome()
+    else:
+        page = DatasetPageCreator(getDataset(datasetSelection, DATASETS))
+        page.loadPage()
+
+credit = "This project is supported by a UofU HCI CCPS pilot grant and by NSF Award IIS-1816149."
+footer.footer(credit)
 #
 #st.sidebar.title('CATEGORIES')
 #selection = st.sidebar.radio('', CATEGORIES)
@@ -87,5 +86,3 @@ footer.footer("This project is supported by a UofU HCI CCPS pilot grant and by N
 #categories.run(params, page_configurations)
 
 #If "category" in params.keys() and params["category"][0] != "Home": Keep going. Otherwise stop and display a message.
-#
-

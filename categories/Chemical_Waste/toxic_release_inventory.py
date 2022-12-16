@@ -1,6 +1,6 @@
 from classes.high_level_csv_page import high_level_csv_page
-from classes.DataFilterer import NumericSliderFilterer
-from classes.DataFilterer import MultipleTextOptionsFilterer
+from classes.data_filterer import NumericSliderFilterer
+from classes.data_filterer import MultipleTextOptionsFilterer
 
 # Upper level pages need these 2 variables.
 name = "toxic_release_inventory"
