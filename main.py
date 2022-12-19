@@ -1,11 +1,7 @@
+"""streamlit app entry point"""
 import streamlit as st
-from streamlit_folium import folium_static
-import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
-import footer
-from pages import acag, caces, radon, hisdac_county, hisdac_fbuy
+from components import footer
+from sub_pages import acag, caces, radon, hisdac_county, hisdac_fbuy
 
 DATASETS = {
     "ACAG": acag,
@@ -19,8 +15,8 @@ st.title("CEDaR")
 
 # Sidebar
 st.sidebar.title('DATASETS')
-selection = st.sidebar.radio('', list(DATASETS.keys()))
+selection = st.sidebar.radio('DATASETS', list(DATASETS.keys()), label_visibility="collapsed")
 page = DATASETS[selection]
 page.app()
 
-footer.footer("This project is supported by a UofU HCI CCPS pilot grant and by NSF Award IIS-1816149.")
+footer.add_footer()
