@@ -1,11 +1,8 @@
+"""Show radon dataset."""
+import folium
+import geopandas
 import streamlit as st
 from streamlit_folium import folium_static
-import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
-import geopandas
-import pandas as pd
 
 SHAPEFILES = {
     "counties": "tl_2010_49_county10.shp.zip",
@@ -13,8 +10,9 @@ SHAPEFILES = {
     "blockgroups": "tl_2010_49_bg10.shp.zip"
 }
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def load_data():
+    """Load dataset."""
     gdf = geopandas.read_file('data/Radon_High_ZIP_code.shp.zip', driver='ESRI Shapefile')
     return gdf
     # ['FID_ZipCod', 'ZIP5', 'COUNTYNBR', 'NAME', 'SYMBOL', 'SHAPE_Leng',
@@ -26,12 +24,13 @@ def load_data():
     #    'Perc_HighR', 'geometry']
 
 def app():
+    """Show page for radon dataset."""
     st.write("## Radon")
     st.write("Radon High Zip code.")
     comp = st.selectbox("Attribute:", ['FREQUENCY', 'SUM_HighEP', 'Perc_HighR'])
     gdf = load_data()
 
-    m = folium.Map(location=[39.6, -111.5],
+    fmap = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)
 
     folium.Choropleth(
@@ -44,6 +43,6 @@ def app():
         fill_opacity=0.7,
         line_opacity=0.2,
         legend_name="",
-    ).add_to(m)
+    ).add_to(fmap)
 
-    folium_static(m, width=700, height=800)
+    folium_static(fmap, width=700, height=800)

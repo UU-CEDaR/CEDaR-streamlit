@@ -1,13 +1,12 @@
-import streamlit as st
-from streamlit_folium import folium_static
-import folium
-import xarray as xr
-import numpy as np
-import pandas as pd
-from datetime import datetime, date, timedelta
-import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
+"""Drwa page for Historical settlement dataset."""
 import branca.colormap as colormap
+import folium
+import matplotlib.pyplot as plt
+import numpy as np
+import streamlit as st
+import xarray as xr
+from streamlit_folium import folium_static
+# pylint: disable=invalid-name, line-too-long
 
 cm = plt.cm.get_cmap('viridis_r')
 TIFFFILES = {
@@ -25,34 +24,35 @@ CAPTION = {
 
 @st.cache
 def load_data(attr):
-# ds = xr.open_zarr("data/hap_annual.zarr")
+    """Load dataset."""
+    # ds = xr.open_zarr("data/hap_annual.zarr")
     ds = xr.open_rasterio(f"data/hisdac/{TIFFFILES[attr]}")
     data = ds.data[0]
     x, y = data.shape
     bounds = [[ds.transform[5]+ds.transform[4]*y, ds.transform[2]], [ds.transform[5], ds.transform[2]+ds.transform[0]*x]]
     if attr == "First built-up year":
-        data = data.astype(np.float)
+        data = data.astype(np.single)
         data = np.ma.masked_array(data, mask=np.logical_or(data==0, data==1))
     else:
         data = np.ma.masked_array(data, data==0)
-    min, max = data.min(), data.max()
     data = (data - data.min()) / (data.max() - data.min()) # normalize
-    return cm(data), min, max, bounds
+    return cm(data), data.min(), data.max(), bounds
 
 def app():
+    """Draw the page."""
     st.write("## HISDAC - FBUY")
     st.write("Reprejected Utah area of Historical settlement composite layer for the U.S. 1810 - 2015. Contained in the dataverse [HISDAC-US](https://dataverse.harvard.edu/dataverse/hisdacus).")
     attr = st.selectbox("Attribute:", list(TIFFFILES.keys()))
-    image, min, max, bounds = load_data(attr)
+    image, vmin, vmax, bounds = load_data(attr)
 
-    m = folium.Map(location=[39.6, -111.5],
+    fmap = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)
 
-    m.add_child(folium.raster_layers.ImageOverlay(image,
+    fmap.add_child(folium.raster_layers.ImageOverlay(image,
                 opacity=.7, mercator_project=True,
                 bounds = bounds))
 
     color_list = [cm(i) for i in np.linspace(0,1,num=10)]
-    legend = colormap.LinearColormap(color_list, caption=CAPTION[attr]).scale(vmin=min, vmax=max)
-    m.add_child(legend)
-    folium_static(m, width=700, height=800)
+    legend = colormap.LinearColormap(color_list, caption=CAPTION[attr]).scale(vmin=vmin, vmax=vmax)
+    fmap.add_child(legend)
+    folium_static(fmap, width=700, height=800)
