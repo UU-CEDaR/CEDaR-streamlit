@@ -1,11 +1,11 @@
-import streamlit as st
-from streamlit_folium import folium_static
+"""Show caces dataset."""
 import folium
-import xarray as xr
-import numpy as np
-from datetime import datetime, date, timedelta
 import geopandas
 import pandas as pd
+import streamlit as st
+from streamlit_folium import folium_static
+
+# pylint: disable=invalid-name
 
 SHAPEFILES = {
     "counties": "tl_2010_49_county10.shp.zip",
@@ -13,35 +13,38 @@ SHAPEFILES = {
     "blockgroups": "tl_2010_49_bg10.shp.zip"
 }
 CAPTION = {
-    'co': 'CO (ppb)', 
-    'no2': 'NO₂ (ppb)', 
-    'o3': 'O₃ (ppb)', 
-    'pm10': 'PM₁₀ (μg/m³)', 
-    'pm25': 'PM₂₅ (μg/m³)', 
+    'co': 'CO (ppb)',
+    'no2': 'NO₂ (ppb)',
+    'o3': 'O₃ (ppb)',
+    'pm10': 'PM₁₀ (μg/m³)',
+    'pm25': 'PM₂₅ (μg/m³)',
     'so2': 'SO₂ (ppm)'
 }
 RANGE = {
-    'co': [1990,2015], 
-    'no2': [1979,2015], 
-    'o3': [1979,2015], 
-    'pm10': [1988,2015], 
-    'pm25': [1999,2015], 
+    'co': [1990,2015],
+    'no2': [1979,2015],
+    'o3': [1979,2015],
+    'pm10': [1988,2015],
+    'pm25': [1999,2015],
     'so2': [1979,2015]
 }
 
 @st.cache
 def load_shapes(shape):
+    """Load shapes of counties, tracts, or blockgroups."""
     gdf = geopandas.read_file(f'data/census/{SHAPEFILES[shape]}', driver='ESRI Shapefile')
     gdf = gdf[['GEOID10','NAMELSAD10','geometry']]#.rename(columns={'GEOID10':'feature.id'})
     return gdf
 
 @st.cache
 def load_data(shape, comp, year):
+    """Load dataset for a given shape, component, and year."""
     df = pd.read_csv(f"data/caces/utah-{shape}.csv")
     df = df[(df.year==year) & (df.pollutant==comp)][['fips','pred_wght']].astype({'fips':'str'})
     return df
 
 def app():
+    """Show page for caces dataset."""
     st.write("## CACES - LUR")
     st.write("Land Use Regression models from [CACES](https://www.caces.us/).")
     shape = st.selectbox("Resolution:", list(SHAPEFILES.keys()))
@@ -52,7 +55,7 @@ def app():
         max_value=RANGE[comp][1],
         value=RANGE[comp][1])
     df = load_data(shape, comp, year)
-    gdf = load_shapes(shape)
+    gdf = load_shapes(shape).copy()
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)
