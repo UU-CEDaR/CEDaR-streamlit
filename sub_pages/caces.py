@@ -1,4 +1,6 @@
 """Show caces dataset."""
+import copy
+
 import folium
 import geopandas
 import pandas as pd
@@ -55,7 +57,8 @@ def app():
         max_value=RANGE[comp][1],
         value=RANGE[comp][1])
     df = load_data(shape, comp, year)
-    gdf = load_shapes(shape).copy()
+    gdf = copy.deepcopy(load_shapes(shape))
+    # gdf = load_shapes(shape).copy()
 
     m = folium.Map(location=[39.6, -111.5],
                    min_zoom=6, max_zoom=12, zoom_start=7)
